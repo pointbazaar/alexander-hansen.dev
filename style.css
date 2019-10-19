@@ -3,7 +3,12 @@ body{
 	color:#00F700; //hacker green
 }
 
+*{
+	font-family:monospace;
+}
+
 a{
 	//color:#00F700; //hacker green
 	
 }
+
