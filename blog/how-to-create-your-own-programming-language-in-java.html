@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="../style.css">
+    <title>How to create your own compiled Programming Language in Java</title>
+  </head>
+  <body>
+	  <div class="container">
+			<h1>How to create your own compiled Programming Language in Java (the hard way)</h1>
+			<p>
+				Last updated: October 23, 2019
+			</p>
+			<p>
+				You might want to read this if:
+				<ol>
+					<li>You want to create your own Programming Language</li>
+					<li>You are prepared to invest 1000+ hours into 10000+ lines of code, writing your own compiler.
+						<ul>
+							<li>
+								<a href="https://www.phoronix.com/scan.php?page=news_item&px=MTE1OTg">GCC: around 7 300 000  SLOC or more</a>
+							</li>
+							<li>
+								<a href="https://www.openhub.net/p/rust-lang">Rust Compiler: around 600 000 SLOC</a>
+							</li>
+							<li>
+								<a href="https://www.openhub.net/p/ghc">Glorious Haskell Compiler: around 500 000 SLOC</a>
+							</li>
+						</ul>
+					</li>
+					<li>You care about performance and want a compiled Language</li>
+					
+					<li>You want to learn something and do most of the work yourself, without tools like YACC, Bison, Flex, LLVM, ...</li>
+					<li>You want to do it in Java or C++ or C# or C or ...</li>
+				</ol>
+			</p>
+			
+			<h3>Why would i want to do the hard work myself? Just use Flex/YACC/Bison/LLVM!!</h3>
+			<p>
+				Because hard work always pays off.
+			</p>
+			
+			<h3>Why go compiled? I heard that writing an interpreter is so much easier!</h3>
+			<p>
+				Yeah, and your programs will execute so much <strong>slower</strong>. 
+				And no real programmer will use your language to write anything remotely performance-critical.
+				(And in the end, every program is performance-critical, because it could take cpu cycles away from other programs
+				which are actually performance-critical)
+			</p>
+			
+			<h3>What i would/will change about my compiler</h3>
+			<p>
+				I should probably switch to writing it in C or Rust to get the greatest speed gains.
+			</p>
+			
+			<h3>1. Language Design</h3>
+			<p>
+				The most important part: your language should look pretty.
+				Should be easy to write and easy to read.
+				<p>
+				Java Example:
+				<pre>
+				class Main{
+					public static void main(String[] args) {
+						System.out.println("Hello World");
+					}
+				}
+				</pre>
+				</p>
+				
+				<p>
+				Haskell Example:
+				<pre>
+				main = putStrLn "Hello, World!"
+				</pre>
+				</p>
+				
+				<p>
+				Rust Example:
+				<pre>
+				fn main() {
+					println!("Hello World!");
+				}
+				</pre>
+				</p>
+				
+				<p>
+				C Example
+				<pre>
+				#include &ltstdio.h&gt
+				int main() {
+					printf("Hallo, Welt!");
+					return 0;
+				}
+				</pre>
+				</p>
+				
+				<p>
+				Python Example
+				<pre>
+				print("Hello, World!")
+				</pre>
+				</p>
+				
+				<p>
+				Dragon Example (the lang i am developing)
+				<pre>
+				use Base.dg
+				namespace Main{
+					public ()~>PInt main{
+						printString(string("Hello World!",12));
+						println();
+						return 0;
+					}
+				}
+				</pre>
+				</p>
+				
+				What do you see? Some Languages are more verbose than others.
+				They explicitly state what is going on. 
+				In some, the types being used are declared.
+				In others, they are optional and can be inferred by the compiler.
+				<br>
+				<br>
+				<strong>[Optional] Exercise:</strong> write down some programs, 
+				in the language you want to develop, in a text editor. See how it looks. 
+				Then iterate on that, until you have a syntax which you feel good about.
+				
+			</p>
+			
+			<h3>1.1 Language Design: selecting features</h3>
+			
+			<p>
+				You probably want features  or a combination of features in your language 
+				that has not been done before. Otherwise, there would be no sense in investing 1000+
+				hours a custom compiler.
+				<br>
+				Here is a list with common language features and their associated difficulty
+				(i could be slightly off about the difficulty of stuff i have not implemented myself):
+				<ul>
+					<li>
+						[Easy] Local Variable Type Inference.
+					</li>
+					<li>
+						[Easy] Passing Subroutines around as Arguments (a part of a functional programming language)
+					</li>
+					<li>
+						[Easy] Simple Pattern Matching
+					</li>
+					<li>
+						[Easy] user-defined data types (such as structs)
+					</li>
+					<li>
+						[Easy] simple compile-time Optimizations (compile-time constant expression evaluation, ...)
+					</li>
+					<li>
+						[Easy] run-time array bounds-checking
+					</li>
+					<li>
+						[Medium] Generics, Type Parameters
+					</li>
+					<li>
+						[Medium] try/catch constructs
+					</li>
+					<li>
+						[Medium] Multithreading
+					</li>
+					<li>
+						[Medium] standard library (console I/O, file I/O, networking, ... from scratch)
+					</li>
+					<li>
+						[Hard] Closures (partially applied functions)
+					</li>
+					<li>
+						[Hard] compile-time array bounds checking
+					</li>
+					<li>
+						[Hard] Laziness
+					</li>
+					<li>
+						[Hard] reversible computation (such as in prolog)
+					</li>
+					<li>
+						[Hard] compile-time proofs about the code
+					</li>
+				</ul>
+				
+				<p>
+					There are some books on advanced programming language / compiler features.
+					Programming Languages and Compilers are both being actively researched, with new 
+					stuff coming out.
+				</p>
+			</p>
+			
+			<h3>1.2 Language Design: creating a grammar</h3>
+			
+			<p>
+				To parse your language, and put it in a representation, which is easily
+				understandable by your compiler, you can create a grammar.
+				<br><br>
+				The grammars of popular languages may guide you:
+				<a href="https://docs.oracle.com/javase/specs/jls/se7/html/jls-18.html">Java Grammar</a> 
+				,
+				<a href="https://www.haskell.org/onlinereport/syntax-iso.html">Haskell Grammar</a> 
+				.
+			</p>
+			
+			<h3>2.1 Writing a Lexer and a Parser</h3>
+			
+			<p>
+				The standard approach for going from source code files to a representation
+				Abstract Syntax Tree (AST) that your compiler can understand is to have a 
+				lexer convert the plain text of the source code into tokens, and then
+				to have a parser to convert these tokens into an AST.
+				<br>
+				This step can be outsourced to various tools, but you probably want to do it yourself
+				for performance/swag reasons.
+				<br>
+				Expect to spend at least 10 hours on the lexer and at least 30 hours on the parser.
+			</p>
+			
+			<h3>3.1 Typechecking </h3>
+			<p>
+				You have your AST now. Now is the time to check if all the rules of your language have been
+				followed in the program, that each subroutine call receives the correct number and types of parameters,
+				and so on.
+				
+			</p>
+			
+			<h3>4.1 VM Code Generation</h3>
+			<p>
+				If you have a reasonably big/recursive/expressive grammar,
+				your AST might be straightforward to compile to x86 intel assembly code.
+				
+				It is sensible to have an intermediate VM Language, which then can be later translated to assembly.
+				
+				You could also have multiple intermediate languages, if your language is truly sophisticated,
+				or you want to support multiple target languages.
+				
+				I choose to use a stack-based vm language for Dragon. You can write programs in it which perform computations
+				on the stack, not on registers.
+				
+				Also, some subroutine-dependent abstract virtual memory segments could be useful.
+				
+			</p>
+			
+			<h3> VM Code Compilation</h3>
+			
+			<p>
+				The final step. To compile the VM code to assembly. 
+				For the last step of translating .asm to a native executable, i used NASM and ld.
+			</p>
+			
+			<h3>Additional Resources</h3>
+			<a href="http://matt.might.net/articles/best-programming-languages/">about which programming languages to learn</a>
+	  </div>
+  </body>
+</html>
