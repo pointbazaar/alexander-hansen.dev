@@ -16,7 +16,7 @@
 		<p>
 			In this article i will talk about common flow-of-control statements
 			aswell as conditional expressions.
-			
+			<br>
 		</p>
 		<p>
 			Expressions compute values, Statements execute some code.
@@ -25,6 +25,8 @@
 			and object-oriented languages compute Values by using
 			flow-of-control statements.
 			
+		</p>
+		<p>
 			So, by using conditionals in the form of expressions, and recursion,
 			we can tell the compiler the rules about the computation of the value.
 			In this way, there is more freedom for the language to decide how
@@ -34,21 +36,146 @@
 			which could have been
 			thought of by the programmer in a more imperative language.
 		</p>
-		<h2>Flow Control Statements</h2>
+		<h2>Explicit Flow Control Statements (imperative)</h2>
+		
+		<h5>Branching</h5>
 		<pre>
 			if(condition){
 				//statements
 			}
 		</pre>
 		<pre>
+			if(condition){
+				//statements
+			}else{
+				//statements
+			}
+		</pre>
+		<pre>
+			switch (primitive_value){
+				case const1:
+					//statements
+					break;
+				case const2:
+					//statements
+					break;
+				default:
+					//statements
+					break;
+			}
+		</pre>
+		
+		<h5>Loops</h5>
+		<pre>
 			while(condition){
 				//statements
 			}
 		</pre>
-		<h2>Conditionals in Expressions</h2>
 		<pre>
-			
+			do{
+				//statements
+			}while(condition)
 		</pre>
+		<pre>
+			for(element in collection){
+				//statements
+			}
+		</pre>
+		<pre>
+			for(int i=0;i&lt;n;i++){
+				//statements
+			}
+		</pre>
+		
+		<p>
+			<a href="https://doc.rust-lang.org/1.7.0/book/loops.html">
+				loop in Rust
+			</a>
+		</p>
+		<pre>
+			loop {
+				//statements run in infinite loop
+				//until some terminating statement is reached
+			}
+		</pre>
+		
+		<h5>Loop Statement in Dragon</h5>
+		<pre>
+			//i can be any expression that evaluates to an integer
+			loop i {
+				//statements run exactly i times
+			}
+		</pre>
+		<p>
+			The property of interest is, that instead of evaluating
+			the condition on each loop iteration, it is just evaluated once.
+			Tradeoff is, that it has to be an integer value.
+		</p>
+		
+		<h2>Conditionals in Expressions <br>(Control Flow is mostly up to the compiler)</h2>
+		
+		<h5>Ternary Operator</h5>
+		<pre>
+			x = if condition then value1 else value2
+		</pre>
+		<pre>
+			x = (condition)?value1:value2;
+		</pre>
+		<h5>Pattern matching (Haskell)</h5>
+		<pre>
+			subr:: Integer -> [Char]
+			subr x 
+			  | x>=2 = "hi"
+			  | otherwise = "hii"
+		</pre>
+		<h5>With higher-order functions</h5>
+		<pre>
+			subr2 x = map  (\y->y+1) [1,2,3,x]
+		</pre>
+		<h2>Tradeoffs</h2>
+		<p>
+			When computing a value, it makes sense to use conditionals
+			as part of Expressions, and higher-order functions. 
+			It is dumb to waste time with low-level details of a for-loop,
+			when mapping the values of an array to their successors.
+			Or when summing the values of an array. 
+			One would use an implicit/ambiguous/does-not-concern-me flow of control 'map' and 'reduce' in such cases.
+		</p>
+		<p>
+			In other cases, when low level details are important,
+			such when using dynamic programming or other approaches,
+			it can be beneficial to use explicit flow of control,
+			as the order in which things happen is clearer to the reader.
+		</p>
+		<p>
+			In cases where the order of execution does not matter,
+			i consider it a mistake to specify this order.
+			I would go as far as to recommend to anyone implementing
+			for-each or higher-level constructs such as map,
+			to explicitly state that no order is guaranteed.
+			Maybe to even flip a coin on which end of the collection
+			to start.
+			This is important to be able to use the properties of functional
+			programming (pure functions) to be able to parallelize 
+			execution without explicit use of threads.
+			<br>
+			In my opinion, Haskell and Java are making a mistake by
+			guaranteeing an order of evaluation / computation
+			in some higher-order functions and pattern matching.
+			Example: 
+			<a href="https://en.wikibooks.org/wiki/Haskell/Control_structures">Haskell Guards Order of Evaluation</a>
+		</p>
+		
+		<h2>Automatic multithreading of pure functions in higher-order functions</h2>
+		<p>
+			This idea has been around for some time.
+			Basically, there could be a function mt_map
+			which stands for multithreaded-map, which is the same as 
+			map, except that it uses a new thread for each execution
+			of the subroutine being passed to it.
+			This would be helpful in batch processing.
+			Java already has such a feature with parallel Streams.
+		</p>
 	</div>
 </body>
 </html>
