@@ -84,6 +84,35 @@
 			to maintain his applications!
 		</p>
 		
+		<h2>Debunking <a href="https://www.docker.com/why-docker">Docker Hype-Speech</a> </h2>
+		
+		<ul>
+			<li>
+				<h5>Bullshit #1: +1300% Developer Productivity</h5>
+				<p>
+					The only thing that can MAYBE hope to +500% Developer Productivity IMHO is 
+					a good IDE and autocomplete for statically typed languages. 
+					<br>
+					I personally experienced -90% in Productivity once by using Docker on my (older, low-spec) 
+					netbook. Because my coworkers then had the not so smart idea to put the RDMBS
+					into a container and start it in a container with a docker compose file to 
+					run alongside the application. It would have been better 
+					for me, if we had just configured some server via ssh, instead of starting
+					and stopping and rebuilding images and running the database on our dev machines.
+					
+					You only need one development database. You do not need one per dev. That's just wasteful
+					of computing resources.
+				</p>
+			</li>
+			<li>
+				<h5>Bullshit #2: +60% Deployment Velocity</h5>
+				<p>
+					Well, you might get more frequency, but your deployments will definitely take longer
+					because of docker container startup time.
+				</p>
+			</li>
+		</ul>
+		
 		<h2>Other Reasons not to use Docker</h2>
 		<a href="https://thehftguy.com/2016/11/01/docker-in-production-an-history-of-failure/">docker in production, a history of failure</a>
 	  </div>
