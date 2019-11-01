@@ -15,8 +15,16 @@
 		<h1>Flow of Control in Programming Languages</h1>
 		<p>
 			In this article i will talk about common flow-of-control statements
-			aswell as conditional expressions.
+			aswell as conditional expressions. 
 			<br>
+			There may be mistakes in this article so please write me an email if you notice any.
+		</p>
+		<h2>Control Flow Basics</h2>
+		<p>
+			At the Assembly Language Level, Control Flow is realized usually through
+			comparisons, which set Flags or Flag Registers, and then
+			the content of those Flags is then used to decide whether to 
+			jump to an address which is not the next instruction, or not.
 		</p>
 		<p>
 			Expressions compute values, Statements execute some code.
@@ -176,6 +184,83 @@
 			This would be helpful in batch processing.
 			Java already has such a feature with parallel Streams.
 		</p>
+		<h2>Control Flow with try-catch</h2>
+		<p>
+			In the past, and with some stubborn programmers even today, errors which occurred during execution
+			were checked for manually, for example with <strong>errno</strong> in C 
+			<a href="http://man7.org/linux/man-pages/man3/errno.3.html">errno man page</a>
+			<br>
+			The benefit of checking for errors manually is, that you don't have to do it.
+			For example, when learning C, you don't have to check whether your malloc(100); was successful or not.
+			You know that it is very likely it was successful, as you only wrote a simple program.
+			
+			<br>
+			<br>
+			For bigger programs, and when working in Teams, it is nice to have a built-in mechanism in the language
+			to enforce that errors are handled properly. For example, a small program (in pseudo code).
+			<pre>
+				try{
+					int x=subroutine_may_throw();
+				}catch(Exception e){
+					//it would be great if we were unable to access x anymore
+					//as it may not be initialized
+				}
+				//also we should be unable to access it here.
+			</pre>
+			Compare that to a language, in which exceptions / errors are handled by return codes:
+			<pre>
+				int x=subroutine_may_throw();
+				
+				//error handling code here may or may not exist
+				
+				//usage of x here
+			</pre>
+			
+			try-catch statements also compose well when the language allows passing exceptions through subroutine calls.
+			Example:
+			<pre>
+				main() throws Exception{
+					try{
+						x=subr();
+					}catch(Exception e){
+						
+					}
+				}
+				
+				subr() throws Exception{
+					subr2();
+				}
+				
+				subr2() throws Exception{
+					throw new Exception();
+				}
+			</pre>
+			In this case, <strong>subr</strong> does not need to know about the specific exception or how to handle
+			or return it to it's caller.
+			<br>
+			When writing larger Programs in a language without such try-catch, one has 2 choices (maybe even more, i don't know about):
+			<ul>
+				<li> return an object/struct/either/optional on every method call that might throw an Exception </li>
+				<li> handle the exception right where it is thrown, either terminating the program or doing something else.</li>
+			</ul>
+			
+		</p>
+		<h2>Control Flow with Generics</h2>
+		<p>
+			When having 2 objects which both implement an interface, a subroutine receiving a parameter of the type of
+			the interface, may (in some languages) have to look up which type it is dealing with, and call the appropriate 
+			method for the specific type.
+			<br>
+			This can (and should) be circumvented by using Monomorphization, a technique for filling
+			in the concrete type for every call site, and using that to pay no runtime cost for using generics.
+			This is done in rust <a href="https://doc.rust-lang.org/book/ch10-01-syntax.html">Monomorphization in Rust.</a>
+		</p>
+		
+		<h2>Possible Future Expansions of this Article</h2>
+		<ul>
+			<li>new flow-of-control constructs that are actually implemented in some programming language</li>
+			<li>flow-of-control constructs of theoretical interest (from theoretical computer science, such as GOTO-language, WHILE-language, LOOP-language)</li>
+		</ul>
 	</div>
 </body>
 </html>
