@@ -1,6 +1,11 @@
-body{
-	background-color:black;
-	color:#00F700; //hacker green
+body,p{
+	background-color:white;
+	/*color:#00F700; //hacker green*/
+	color:black;
+}
+
+h1,h2,h3,h4,h5{
+	color: #090;
 }
 
 *{
@@ -8,7 +13,7 @@ body{
 }
 
 a{
-	//color:#00F700; //hacker green
+	color:#00F70;
 	
 }
 
