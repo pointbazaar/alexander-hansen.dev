@@ -102,6 +102,18 @@ var f1=function(){
 				"whatawinnerbuilt":`A winning team built an app where you could 'adopt' green spaces in the city and care for them. You could adopt them in the app, and then plant stuff there. The idea was to encourage people taking care of the environment and doing environmental stewardship. Each green space would have its own page on their website. So you could post updates and pictures. It would enable people to have a green space to care for even if they do not have their own garden. And it would improve the city. `,
 				"status":"LOST",
 				"opt_custom":""
+			},
+			{
+				"name":"Provinzial Hackathon 2019",
+				"url":"https://www.provinzial.com/content/_micro/hackathon/",
+				"location":"Duesseldorf, Germany",
+				"startdate":"8.11.2019",
+				"enddate":"10.11.2019",
+				"totalprizes":"2500 Euro",
+				"whatwebuilt":` Our Team built a Mobile Game (a Game of life Variant) where you would have events happen to you, and you could also pay for virtual insurances. The idea was to educate young people about different insurance policies and offerings.`,
+				"whatawinnerbuilt":`Team Extra Cute Crocodiles won a challenge, with a Mobile App, which would talk to a backend, which would analyze bank customers transactions, figure out if they made a purchase that could be insured, and then would quickly send a push notification to the user, recommending insurance offerings.`,
+				"status":"LOST",
+				"opt_custom":""
 			}
 		]
 	};
