@@ -4,14 +4,7 @@ var f2=function(){
 
 	var view1 = {
 		"hacks":[
-			{
-				"name":"Kreathon 2019",
-				"url":"https://kreathon-krefeld.de/",
-				"location":"Krefeld,Germany",
-				"startdate":"15.11.2019",
-				"enddate":"16.11.2019",
-				"totalprizes":"6000 Euro"
-			}
+			
 			
 		],
 		"example":"example"

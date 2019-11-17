@@ -110,8 +110,20 @@ var f1=function(){
 				"startdate":"8.11.2019",
 				"enddate":"10.11.2019",
 				"totalprizes":"2500 Euro",
-				"whatwebuilt":` Our Team built a Mobile Game (a Game of life Variant) where you would have events happen to you, and you could also pay for virtual insurances. The idea was to educate young people about different insurance policies and offerings.`,
+				"whatwebuilt":` Our Team built a Mobile Game (a Game of life Variant) where you would have events happen to you, and you could also pay for virtual insurances. The idea was to educate young people about different insurance policies and offerings. We won the community choice Award.`,
 				"whatawinnerbuilt":`Team Extra Cute Crocodiles won a challenge, with a Mobile App, which would talk to a backend, which would analyze bank customers transactions, figure out if they made a purchase that could be insured, and then would quickly send a push notification to the user, recommending insurance offerings.`,
+				"status":"WON",
+				"opt_custom":""
+			},
+			{
+				"name":"Kreathon 2019",
+				"url":"https://www.kreathon-krefeld.de",
+				"location":"Krefeld, Germany",
+				"startdate":"15.11.2019",
+				"enddate":"16.11.2019",
+				"totalprizes":"6000 Euro",
+				"whatwebuilt":` Our Team (Team ExtraCute Crocodiles) built an image classifier which could detect different materials. We also built a webapp. We tried challange 1(Containers). We lost.`,
+				"whatawinnerbuilt":`A winning Team, Team CLIMATIX, made a mockup and a business model, which they presented, for a financial service to rent air conditioning unit. (Challenge: Klima einfach buchbar machen)`,
 				"status":"LOST",
 				"opt_custom":""
 			}
