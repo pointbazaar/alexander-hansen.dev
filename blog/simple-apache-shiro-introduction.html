@@ -97,11 +97,13 @@
 		Instead of a <b>SimpleCredentialsMatcher</b> we can use a <b><a href="https://shiro.apache.org/static/1.2.3/apidocs/org/apache/shiro/authc/credential/HashedCredentialsMatcher.html">HashedCredentialsMatcher</a></b>
 		<br>
 		<code class="prettyprint">
-			HashedCredentialsMatcher hcm = new HashedCredentialsMatcher(Sha256Hash.ALGORITHM_NAME)
-			hcm.setStoredCredentialsHexEncoded(true);
-			hcm.setHashIterations(1024);
-			hcm.setHashSalted(true);
-			realm.setCredentialsMatcher(hcm);
+			<br>
+			HashedCredentialsMatcher hcm = new HashedCredentialsMatcher(Sha256Hash.ALGORITHM_NAME);<br>
+			hcm.setStoredCredentialsHexEncoded(true);<br>
+			hcm.setHashIterations(1024);<br>
+			hcm.setHashSalted(true);<br>
+			realm.setCredentialsMatcher(hcm);<br>
+			<br>
 		</code>
 		
 		Now it assumes the credentials to be stored in our database in hashed and salted form, and also hex encoded.
@@ -109,6 +111,7 @@
 		We can use a custom method to hash and salt passwords before inserting them into the database.<br>
 		Also we need to store the salt for each user in the database.<br>
 		As an example, this time the salt is "1234" each time.<br>
+		<br>
 		
 		<code class="prettyprint">
 			<br>
@@ -126,7 +129,8 @@
 		</code>
 		
 		We also need to modify our <b>AuthenticationInfo</b> to be a <b>SaltedAuthenticationInfo</b> so that <br>
-		our HashedCredentialsMatcher can use the salt.<br>
+		our <b>HashedCredentialsMatcher</b> can use the salt.<br>
+		<br>
 		
 		<code class="prettyprint">
 			<br>
@@ -145,7 +149,6 @@
 			returned through <b>SaltedAuthenticationInfo</b> instance were matching.
 		</p>
 	</p>
-  	<p>TODO</p>
 		  
   	<h3>Valuable Links</h3>
 	<ul>
