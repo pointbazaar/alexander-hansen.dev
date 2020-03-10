@@ -15,11 +15,11 @@
   		<h1>Simple <a href="https://shiro.apache.org">Apache Shiro</a> Introduction</h1>
       
       <code>
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.apache.shiro &lt;/groupId &gt;
-            &lt;artifactId&gt;shiro-core &lt;/artifactId &gt;
-            &lt;version&gt;1.5.1 &lt;/version&gt;
-        &lt;/dependency&gt;
+        &lt;dependency&gt;<br>
+            &lt;groupId&gt;org.apache.shiro &lt;/groupId &gt;<br>
+            &lt;artifactId&gt;shiro-core &lt;/artifactId &gt;<br>
+            &lt;version&gt;1.5.1 &lt;/version&gt;<br>
+        &lt;/dependency&gt;<br>
       </code>
       
       <p>
@@ -39,18 +39,18 @@
         A <b>CredentialsMatcher</b> can be set on the realm and accessed later on.
 	      
         <code>
-		SimpleAccountRealm realm = new SimpleAccountRealm("myrealm");
-		realm.addRole("Admin");
-		realm.addRole("Dev");
-		
-		//add an account with username, password and a role
-		realm.addAccount("username","password","Admin");
-		
-		realm.accountExists("username");	//returns true
-		realm.accountExists("peter");		//returns false
-		
-		realm.roleExists("Admin"); 		//returns true
-		realm.roleExists("Magician"); 		//returns false
+		SimpleAccountRealm realm = new SimpleAccountRealm("myrealm");<br>
+		realm.addRole("Admin");<br>
+		realm.addRole("Dev");<br>
+		<br>
+		//add an account with username, password and a role<br>
+		realm.addAccount("username","password","Admin");<br>
+		<br>
+		realm.accountExists("username");	//returns true<br>
+		realm.accountExists("peter");		//returns false<br>
+		<br>
+		realm.roleExists("Admin"); 		//returns true<br>
+		realm.roleExists("Magician"); 		//returns false<br>
       	</code>
       </p>
       
