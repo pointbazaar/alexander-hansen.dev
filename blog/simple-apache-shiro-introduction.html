@@ -37,6 +37,21 @@
         It supports adding Roles and Accounts (in this case, pairs of username,password) to its instance.
         After adding Accounts and Roles, the Realm can be questioned whether an account or role exists.
         A <b>CredentialsMatcher</b> can be set on the realm and accessed later on.
+	      
+        <code>
+		SimpleAccountRealm realm = new SimpleAccountRealm("myrealm");
+		realm.addRole("Admin");
+		realm.addRole("Dev");
+		
+		//add an account with username, password and a role
+		realm.addAccount("username","password","Admin");
+		
+		realm.accountExists("username");	//returns true
+		realm.accountExists("peter");		//returns false
+		
+		realm.roleExists("Admin"); 		//returns true
+		realm.roleExists("Magician"); 		//returns false
+      	</code>
       </p>
       
       <h5>AuthenticationInfo and AuthenticationToken</h5>
