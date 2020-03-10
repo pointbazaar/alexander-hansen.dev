@@ -78,7 +78,8 @@
 		<br>
 		//obtain our credentials matcher (the SimpleCredentialsMatcher we configured on our realm earlier)<br>
 		//and use it to match our credentials<br>
-		AuthenticationInfo authInfo = new SimpleAuthenticationInfo(token.getPrincipal(),token.getCredentials(),"myrealm");
+		AuthenticationInfo authInfo = new SimpleAuthenticationInfo(token.getPrincipal(),token.getCredentials(),"myrealm");<br>
+		<br>
 		boolean match = realm<br>
 		.getCredentialsMatcher()<br>
 		.doCredentialsMatch(token,authInfo);<br>
