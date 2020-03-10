@@ -91,9 +91,70 @@
 	<p>
 		Applications considered Secure should never store plaintext representations of Passwords in a Database.
 		Also, Passwords should be salted with a random salt that is different for every User. Shiro provides 
-		Support for Hashing and Salting.
+		Support for Hashing and Salting. The next section shows how to do the hashing part.
 	</p>
-	<p>TODO</p>
+	<p>
+		Instead of a <b>SimpleCredentialsMatcher</b> we can use a <b><a href="https://shiro.apache.org/static/1.2.3/apidocs/org/apache/shiro/authc/credential/HashedCredentialsMatcher.html">HashedCredentialsMatcher</a></b>
+		<br>
+		<code class="prettyprint">
+			HashedCredentialsMatcher hcm = new HashedCredentialsMatcher(Sha256Hash.ALGORITHM_NAME)
+			hcm.setStoredCredentialsHexEncoded(true);
+			hcm.setHashIterations(1024);
+			hcm.setHashSalted(true);
+			realm.setCredentialsMatcher(hcm);
+		</code>
+		
+		Now it assumes the credentials to be stored in our database in hashed and salted form, and also hex encoded.
+		How can we bring a password in this form?<br>
+		We can use a custom method to hash and salt passwords before inserting them into the database.<br>
+		Also we need to store the salt for each user in the database.<br>
+		As an example, this time the salt is "1234" each time.<br>
+		
+		<code class="prettyprint">
+			<br>
+			private static String hash(String password){<br>
+				String salt = "1234";<br>
+        			return new SimpleHash(Sha256Hash.ALGORITHM_NAME, password, salt, 1024).toHex();<br>
+    			}<br>
+		</code>
+		
+		Adjusting the insertion of accounts into our realm:<br>
+		
+		<code class="prettyprint">
+			<br>
+			realm.addAccount("username", hash("password"),"Admin");<br>
+		</code>
+		
+		We also need to modify our <b>AuthenticationInfo</b> to be a <b>SaltedAuthenticationInfo</b> so that <br>
+		our HashedCredentialsMatcher can use the salt.<br>
+		
+		<code class="prettyprint">
+			<br>
+			String hashed_pw = hash("password");<br>
+			SaltedAuthenticationInfo sai = new SimpleAuthenticationInfo(token.getPrincipal(),hashed_pw,new SimpleByteSource("1234"),"myrealm");<br>
+			<br>
+			CredentialsMatcher matcher = realm.getCredentialsMatcher();<br>
+			<br>
+			//should be true <br>
+			boolean match = matcher.doCredentialsMatch(token, sai);<br>
+			<br>
+		</code>
+		
+		<p>
+			As you can see we were lucky, the hashed password and salt (should be from the database, in our case hardcoded),<br>
+			returned through <b>SaltedAuthenticationInfo</b> instance were matching.
+		</p>
+	</p>
+  	<p>TODO</p>
+		  
+  	<h3>Valuable Links</h3>
+	<ul>
+		<li><a href="https://www.programcreek.com/java-api-examples/?class=org.apache.shiro.authc.credential.HashedCredentialsMatcher&method=setStoredCredentialsHexEncoded">Examples for HashedCredentialsMatcher 1</a></li>
+		<li><a href="https://www.programcreek.com/java-api-examples/?api=org.apache.shiro.authc.credential.HashedCredentialsMatcher">Examples for HashedCredentialsMatcher 2</a></li>
+		<li><a href="https://shiro.apache.org/static/1.3.2/apidocs/org/apache/shiro/authc/SaltedAuthenticationInfo.html">SaltedAuthenticationInfo</a></li>
+		<li><a href="https://shiro.apache.org/static/1.2.3/apidocs/org/apache/shiro/authc/credential/HashedCredentialsMatcher.html">HashedCredentialsMatcher</a></li>
+		<li><a href="https://shiro.apache.org/static/1.5.1/apidocs/org/apache/shiro/authc/AuthenticationInfo.html">AuthenticationInfo</a></li>
+	</ul>
     </div>
   <!-- to make it pretty -->
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=kotlin"></script>
