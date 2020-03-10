@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="../style.css">
+    <title>Simple Apache Shiro Introduction</title>
+  </head>
+  <body>
+	  <div class="container">	  
+  		<h1>Simple <a href="https://shiro.apache.org">Apache Shiro</a> Introduction</h1>
+      
+      <code>
+        <!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-core -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>1.5.1</version>
+        </dependency>
+      </code>
+      
+      <p>
+        The names of classes are marked in <b>bold</b> in this post. So you can easily get started.
+        If you find any mistakes in this blog post please send me an email.
+      </p>
+      
+      <h3> Concepts in Apache Shiro </h3>
+      
+      <h5> Realm Concept </h5>
+      <p>
+        There can be multiple <b>Realm</b>. Such as <b><a href="https://shiro.apache.org/static/1.5.1/apidocs/org/apache/shiro/realm/SimpleAccountRealm.html">SimpleAccountRealm</a></b>.
+        A <b>SimpleAccountRealm</b> is a simple implementation of the <b>Realm</b> Interface. 
+        Like every Realm, it can be given a Name. 
+        It supports adding Roles and Accounts (in this case, pairs of username,password) to its instance.
+        After adding Accounts and Roles, the Realm can be questioned whether an account or role exists.
+        A <b>CredentialsMatcher</b> can be set on the realm and accessed later on.
+      </p>
+      
+      <h5>AuthenticationInfo and AuthenticationToken</h5>
+      
+      <p>
+        For Authorization Purposes, we can create <b> UsernamePasswordToken</b> Object. It implements <b> AuthenticationToken </b> Interface.
+        
+        From the <b>AuthenticationToken </b> we can then use our users table in the database to create an <b> AuthenticationInfo</b> instance.
+      </p>
+      
+		</div>
+  </body>
+</html>
