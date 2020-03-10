@@ -37,9 +37,14 @@
         It supports adding Roles and Accounts (in this case, pairs of username,password) to its instance.
         After adding Accounts and Roles, the Realm can be questioned whether an account or role exists.
         A <b>CredentialsMatcher</b> can be set on the realm and accessed later on.
-	      
+      <br>
         <code>
+		<br>
 		SimpleAccountRealm realm = new SimpleAccountRealm("myrealm");<br>
+		<br>
+		//set credentials to be matched plain (without hashing or similar)<br>
+		ream.setCredentialsMatcher(new SimpleCredentialsMatcher());<br>
+		
 		realm.addRole("Admin");<br>
 		realm.addRole("Dev");<br>
 		<br>
@@ -61,7 +66,25 @@
         
         From the <b>AuthenticationToken </b> we can then use our users table in the database to create an <b> AuthenticationInfo</b> instance.
       </p>
-      
-		</div>
+	<code>
+		<br>
+		SimpleAccountRealm realm = initRealm(); // assume it exists<br>
+		SecurityManager mg = new DefaultSecurityManager(realm);<br>
+		<br>
+		SecurityUtils.setSecurityManager(mg);<br>
+		<br>
+		//implements AuthenticationToken interface <br>
+		UsernamePasswordToken token = new UsernamePasswordToken("username","password");<br>
+		<br>
+		//obtain our credentials matcher (the SimpleCredentialsMatcher we configured on our realm earlier)<br>
+		//and use it to match our credentials<br>
+		AuthenticationInfo authInfo = new SimpleAuthenticationInfo(token.getPrincipal(),token.getCredentials(),"myrealm");
+		boolean match = realm<br>
+		.getCredentialsMatcher()<br>
+		.doCredentialsMatch(token,authInfo);<br>
+		<br>
+		//match should be true<br>
+	</code>
+    </div>
   </body>
 </html>
