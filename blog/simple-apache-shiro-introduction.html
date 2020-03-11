@@ -1,50 +1,87 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="../style.css">
-    <title>Simple Apache Shiro Introduction</title>
-  </head>
-  <body>
-	  <div class="container">	  
-  		<h1>Simple <a href="https://shiro.apache.org">Apache Shiro</a> Introduction</h1>
+	<title>Simple Apache Shiro Introduction</title>
+</head>
+<body>
+<div class="container">	  
+	<h1>Simple <a href="https://shiro.apache.org">Apache Shiro</a> Introduction</h1>
+
+	<h3>Contents</h3>
+	<ul>
+		<li><a href="#concepts">Concepts</a></li>
+		<li><a href="#use-cases">Example Use Cases for Apache Shiro</a></li>
+		<li><a href="#hashes">Hashes And Salting</a></li>
+		<li><a href="#roles">Roles and Authorization Intro</a></li>
+		<li><a href="#jdbc">Using JDBCRealm to connect Shiro to your Database</a></li>
+		<li><a href="#links">Useful Links</a></li>
+	</ul>
+	
+	<code>
+	<br>
+	&lt;dependency&gt;<br>
+	    &lt;groupId&gt;org.apache.shiro &lt;/groupId &gt;<br>
+	    &lt;artifactId&gt;shiro-core &lt;/artifactId &gt;<br>
+	    &lt;version&gt;1.5.1 &lt;/version&gt;<br>
+	&lt;/dependency&gt;<br>
+	</code>
       
-      <code>
-        &lt;dependency&gt;<br>
-            &lt;groupId&gt;org.apache.shiro &lt;/groupId &gt;<br>
-            &lt;artifactId&gt;shiro-core &lt;/artifactId &gt;<br>
-            &lt;version&gt;1.5.1 &lt;/version&gt;<br>
-        &lt;/dependency&gt;<br>
-      </code>
-      
-      <p>
-        The names of classes are marked in <b>bold</b> in this post. So you can easily get started.
-        If you find any mistakes in this blog post please send me an email.
-      </p>
-      
-      <h3> Concepts in Apache Shiro </h3>
-      
-      <h5> Realm Concept </h5>
-      <p>
-        There can be multiple <b>Realm</b>. Such as <b><a href="https://shiro.apache.org/static/1.5.1/apidocs/org/apache/shiro/realm/SimpleAccountRealm.html">SimpleAccountRealm</a></b>.
-        A <b>SimpleAccountRealm</b> is a simple implementation of the <b>Realm</b> Interface. 
-        Like every Realm, it can be given a Name. 
-        It supports adding Roles and Accounts (in this case, pairs of username,password) to its instance.
-        After adding Accounts and Roles, the Realm can be questioned whether an account or role exists.
-        A <b>CredentialsMatcher</b> can be set on the realm and accessed later on.
-      <br>
-        <code class="prettyprint">
+	<p>
+		The names of classes are marked in <b>bold</b> in this post. So you can easily get started.
+		If you find any mistakes in this blog post please send me an email.
+	</p>
+
+	<h3 id="concepts"> Concepts in Apache Shiro </h3>
+	
+	<h5> Shiro is Framework Agnostic</h5>
+	<p>
+		Apache Shiro does not force you into a Framework like Spring Security.
+		Its classes work well together, but can also be used alone.
+	</p>
+	
+	<h5 id="use-cases"> Example Shiro Use Cases</h5>
+	
+	<p>
+		<b>Use Case 1:</b> You want to model a Simple Authentication Scenario, perhaps for a Tutorial or in a Hackathon Scenario.<br>
+		Shiro has you covered. Create a <b>SimpleAccountRealm</b> and .addAccount(...) some Accounts on it.<br>
+		
+		Your can <code class="prettyprint">.setCredentialsMatcher(new SimpleCredentialsMatcher());</code> on it.<br>
+		This <b>CredentialsMatcher</b> will just compare usernames and passwords.<br>
+		Use <b>UsernamePasswordToken</b> and <b>SimpleAuthenticationInfo</b> and then ask the <b>SimpleCredentialsMatcher</b><br>
+		you just configured to see if the provided token matches with the stored credentials.
+	</p>
+	
+	<p>
+		<b>Use Case 2:</b> You want to secure a Web Application and do not want to buy into any of these bloated 
+		Frameworks like Spring or similar. Perhaps you are using Spark or Javelin, or similar microframework.<br>
+		
+		In this Case, you can benefit from <b>HashedCredentialsMatcher</b>, <b>SimpleHash</b>, <b>Sha256Hash</b>
+		and similar classes. 
+	</p>
+
+	<h5> Realm Concept </h5>
+	<p>
+		There can be multiple <b>Realm</b>. Such as <b><a href="https://shiro.apache.org/static/1.5.1/apidocs/org/apache/shiro/realm/SimpleAccountRealm.html">SimpleAccountRealm</a></b>.
+		A <b>SimpleAccountRealm</b> is a simple implementation of the <b>Realm</b> Interface. 
+		Like every Realm, it can be given a Name. 
+		It supports adding Roles and Accounts (in this case, pairs of username,password) to its instance.
+		After adding Accounts and Roles, the Realm can be questioned whether an account or role exists.
+		A <b>CredentialsMatcher</b> can be set on the realm and accessed later on.
+		<br>
+	<code class="prettyprint">
 		<br>
 		SimpleAccountRealm realm = new SimpleAccountRealm("myrealm");<br>
 		<br>
 		//set credentials to be matched plain (without hashing or similar)<br>
-		ream.setCredentialsMatcher(new SimpleCredentialsMatcher());<br>
-		
+		realm.setCredentialsMatcher(new SimpleCredentialsMatcher());<br>
+
 		realm.addRole("Admin");<br>
 		realm.addRole("Dev");<br>
 		<br>
@@ -56,16 +93,16 @@
 		<br>
 		realm.roleExists("Admin"); 		//returns true<br>
 		realm.roleExists("Magician"); 		//returns false<br>
-      	</code>
-      </p>
-      
-      <h5>AuthenticationInfo and AuthenticationToken</h5>
-      
-      <p>
-        For Authorization Purposes, we can create <b> UsernamePasswordToken</b> Object. It implements <b> AuthenticationToken </b> Interface.
-        
-        From the <b>AuthenticationToken </b> we can then use our users table in the database to create an <b> AuthenticationInfo</b> instance.
-      </p>
+	</code>
+	</p>
+
+	<h5>AuthenticationInfo and AuthenticationToken</h5>
+
+	<p>
+	For Authorization Purposes, we can create <b> UsernamePasswordToken</b> Object. It implements <b> AuthenticationToken </b> Interface.
+
+	From the <b>AuthenticationToken </b> we can then use our users table in the database to create an <b> AuthenticationInfo</b> instance.
+	</p>
 	<code class="prettyprint">
 		<br>
 		SimpleAccountRealm realm = initRealm(); // assume it exists<br>
@@ -86,8 +123,8 @@
 		<br>
 		//match should be true<br>
 	</code>
-		  
-	<h3>Using Hashes and Salts with Apache Shiro</h3>  
+
+	<h3 id="hashes">Using Hashes and Salts with Apache Shiro</h3>  
 	<p>
 		Applications considered Secure should never store plaintext representations of Passwords in a Database.
 		Also, Passwords should be salted with a random salt that is different for every User. Shiro provides 
@@ -105,33 +142,33 @@
 			realm.setCredentialsMatcher(hcm);<br>
 			<br>
 		</code>
-		
+
 		Now it assumes the credentials to be stored in our database in hashed and salted form, and also hex encoded.
 		How can we bring a password in this form?<br>
 		We can use a custom method to hash and salt passwords before inserting them into the database.<br>
 		Also we need to store the salt for each user in the database.<br>
 		As an example, this time the salt is "1234" each time.<br>
 		<br>
-		
+
 		<code class="prettyprint">
 			<br>
 			private static String hash(String password){<br>
 				String salt = "1234";<br>
-        			return new SimpleHash(Sha256Hash.ALGORITHM_NAME, password, salt, 1024).toHex();<br>
-    			}<br>
+				return new SimpleHash(Sha256Hash.ALGORITHM_NAME, password, salt, 1024).toHex();<br>
+			}<br>
 		</code>
-		
+
 		Adjusting the insertion of accounts into our realm:<br>
-		
+
 		<code class="prettyprint">
 			<br>
 			realm.addAccount("username", hash("password"),"Admin");<br>
 		</code>
-		
+
 		We also need to modify our <b>AuthenticationInfo</b> to be a <b>SaltedAuthenticationInfo</b> so that <br>
 		our <b>HashedCredentialsMatcher</b> can use the salt.<br>
 		<br>
-		
+
 		<code class="prettyprint">
 			<br>
 			String hashed_pw = hash("password");<br>
@@ -143,14 +180,37 @@
 			boolean match = matcher.doCredentialsMatch(token, sai);<br>
 			<br>
 		</code>
-		
+
 		<p>
 			As you can see we were lucky, the hashed password and salt (should be from the database, in our case hardcoded),<br>
 			returned through <b>SaltedAuthenticationInfo</b> instance were matching.
 		</p>
 	</p>
-		  
-  	<h3>Valuable Links</h3>
+	
+	<h3 id="roles">Roles and Authorization Intro</h3>
+	<p>
+		Similar to howe <b>AuthenticationInfo</b> represents Authentication Information from the database<br>
+		to be compared with a <b>AuthenticationToken</b> instance (a <b>UsernamePasswordToken</b> instance in our case),<br>
+		<b>AuthorizationInfo</b> represents a Collection of Permissions and Roles. <br>
+		
+		<code class="prettyprint">
+			<br>
+			Set<String> roles = new HashSet<>();<br>
+			roles.add("myrole");<br>
+			AuthorizationInfo ai = new SimpleAuthorizationInfo(roles);<br>
+			<br>
+			if(ai.getRoles().contains("myrole")){<br>
+				//will execute <br>
+				System.out.println("myrole permission !");<br>
+			}<br>
+		</code>
+		
+	</p>
+	
+	<h3 id="jdbc">Using JDBCRealm to connect Shiro to your Database</h3>
+	<p>TODO</p>
+	
+	<h3 id="links">Valuable Links</h3>
 	<ul>
 		<li><a href="https://www.programcreek.com/java-api-examples/?class=org.apache.shiro.authc.credential.HashedCredentialsMatcher&method=setStoredCredentialsHexEncoded">Examples for HashedCredentialsMatcher 1</a></li>
 		<li><a href="https://www.programcreek.com/java-api-examples/?api=org.apache.shiro.authc.credential.HashedCredentialsMatcher">Examples for HashedCredentialsMatcher 2</a></li>
