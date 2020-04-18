@@ -1,0 +1,137 @@
+<html>
+
+<head>
+    <title>Android Dev Notes (Java)</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-social@5.1.1/bootstrap-social.css">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/prettify.css">
+    
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+<body>
+	
+<div class="container">
+
+	<h1> My Android Dev Notes (Java)</h1>
+	
+	<p> 
+		Use with Caution. Some of this may be wrong or entirely unfounded. <i>Last Update: 18.4.2020 </i> <br>
+		These Notes are just for me to avoid common pitfalls.
+		
+	</p>
+	
+	<h3> Classes / Method Calls to avoid (again, this may be entirely unfounded)</h3>
+	<ul>
+		<li> LocalDate </li>
+		<li> System.exit(...) </li>
+		<li> System.out.println(...) (where will it print to when the app runs on the device?)</li>
+	</ul>
+	
+	<h3> Networking </h3>
+	<p>
+		<strong>Always do Networking on a Seperate Thread. </strong> Otherwise the App will crash.<br>
+		You need a special line in AndroidManifest.xml to do Cleartext HTTP Networking.
+		<a href="https://stackoverflow.com/questions/45940861/android-8-cleartext-http-traffic-not-permitted"> Explanation </a> <br>
+		
+	</p>
+	
+	<h3> Activities and Intents </h3>
+	<p>
+		You can call <strong>this.finish()</strong> after calling <strong>startActivity(...)</strong>
+		to deny the user the ability to reach this activity again with the back button. 
+		If the back button is pressed, the App will be quit, if you follow this pattern 
+		througout all your Activities.
+	</p>
+	
+	<h3> General Advice </h3>
+	<ul>
+		<li> 
+			<strong>Never exit your App</strong> or provide any buttons to exit the App. It will just be counted against you... "$YOUR_APP crashes all the time" will be what the user sees.
+		</li>
+		<li> 
+			<strong>Code very defensively. </strong> Network connection could be unavailable, ... The Android Application Rutime
+			will use any and all Excuses to throw Exceptions left and right. Do not give them the Opportunity
+			to throw you an Exception. 
+		</li>
+	</ul>
+	
+	<h3>Boilerplate Codes</h3>
+	<h5>To start a new Activity</h5>
+	<pre class="prettyprint">
+final Intent i = new Intent(this, TargetActivity.class);
+startActivity(i);
+this.finish(); 
+//prevent users from going back to this activity with the back button
+</pre>
+
+	<h5>To Change the Colors of your App (res/values/colors.xml)</h5>
+	<pre class="prettyprint lang-xml">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; 
+&lt;resources&gt; 
+	&lt;color name=&quot;colorPrimary&quot;&gt;#169148&lt;/color&gt; 
+	&lt;color name=&quot;colorPrimaryDark&quot;&gt;#169148&lt;/color&gt; 
+	&lt;color name=&quot;colorAccent&quot;&gt;#28A745&lt;/color&gt; 
+&lt;/resources&gt;
+</pre>
+
+	<h5>To depend on your own libraries (build.gradle)</h5>
+	<pre class="prettyprint">
+implementation files('../../smartlogistics/target/smartlogistics-1.0-SNAPSHOT.jar')
+</pre>
+	
+	<h3>Relevant Classes</h3>
+	<ul>
+		<li>
+			<a href="https://developer.android.com/reference/android/widget/TextView#summary">TextView</a>
+			<ul>
+				<li>::setText, ::setEnabled</li>
+			</ul>
+		</li>
+		<li>
+			<a href="https://developer.android.com/reference/android/widget/Button">Button</a>
+			<ul>
+				<li>::setText, ::setEnabled, ::setOnClickListener</li>
+			</ul>
+		</li>
+		<li>Activity</li>
+		<li>AppCompatActivity</li>
+		<li>
+			<a href="https://developer.android.com/reference/android/widget/LinearLayout">LinearLayout</a>
+		</li>
+		<li>
+			<a href="https://developer.android.com/reference/android/widget/Spinner">Spinner</a>
+			<ul>
+				<li>::setAdapter</li>
+			</ul>
+		</li>
+		<li>
+			<a href="https://developer.android.com/reference/android/widget/ArrayAdapter">ArrayAdapter</a>
+		</li>
+	</ul>
+	
+	<h3>Relevant Subroutines</h3>
+	<ul>
+		<li>findViewById(R.id.YOUR_ID)</li>
+		<li>startActivity(Intent i)</li>
+	</ul>
+</div>
+	
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+
+</body>
+
+</html>
