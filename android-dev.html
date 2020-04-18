@@ -71,6 +71,18 @@ this.finish();
 //prevent users from going back to this activity with the back button
 </pre>
 
+	<h5>To catch Exceptions (use Throwable to catch them all)</h5>
+	<p>In ordinary Java development, most Exceptions could be caught with <strong>Exception</strong>. <br>
+		On Android, <strong>Throwable</strong> should be used. 
+	</p>
+	<pre class="prettyprint">
+try{
+	//could throw
+}catch(Throwable e){
+	//your code
+}
+	</pre>
+
 	<h5>To Change the Colors of your App (res/values/colors.xml)</h5>
 	<pre class="prettyprint lang-xml">
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; 
