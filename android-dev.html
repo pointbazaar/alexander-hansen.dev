@@ -15,25 +15,52 @@
 
 <body>
 	
+	<div class="p-2" style="position: fixed; top: 0px; right: 0px; background-color: yellow; color:white; border: 1px solid black;">
+		<a href="#view_manip">View Manipulation </a><br>
+		<a href="#avoid">Method Calls to avoid </a><br>
+		<a href="#networking">Networking </a><br>
+		<a href="#boilerplate">Boilerplate Codes </a><br>
+		<a href="#validation">Form Validation </a><br>
+		<a href="#relevant_classes">Relevant Classes </a><br>
+		<a href="#publish">Publish on <br>Google Play Store </a><br>
+	</div>
+	
 <div class="container">
 
 	<h1> My Android Dev Notes (Java)</h1>
 	
 	<p> 
-		Use with Caution. Some of this may be wrong or entirely unfounded. <i>Last Update: 18.4.2020 </i> <br>
+		Use with Caution. Some of this may be wrong or entirely unfounded. 
+		<i>Last Update: 23.4.2020 </i> <br>
 		These Notes are just for me to avoid common pitfalls.
 		
 	</p>
 	
-	<h3> Classes / Method Calls to avoid (again, this may be entirely unfounded)</h3>
+	<h3 id="view_manip">View Manipulation</h3>
+	<p>
+		Views can be created via XML or programmatically. <br>
+		This Section is about how to manipulate them. <br>
+		<strong> Only every manipulate Views from the Thread that created them.</strong> <br>
+		Almost everything you see in a View on Android has a Java Object equivalent
+		that can be obtained through <strong>Activity::findViewById</strong>. <br>
+		Such as <br>
+		<ul>
+			<li>TextView</li>
+			<li>EditText</li>
+			<li>LinearLayout</li>
+			<li>Spinner</li>
+			<li>Button</li>
+		</ul>
+	</p>
+	
+	<h3 id="avoid">Method Calls to avoid (this may be entirely unfounded)</h3>
 	<ul>
-		<li> LocalDate </li>
 		<li> System.exit(...) </li>
 		<li> System.out.println(...) (where will it print to when the app runs on the device?)</li>
 		<li> Thread.sleep(...) (it is discouraged, even within try-catch)</li>
 	</ul>
 	
-	<h3> Networking </h3>
+	<h3 id="networking"> Networking </h3>
 	<p>
 		<strong>Always do Networking on a Seperate Thread. </strong> Otherwise the App will crash.<br>
 		You need a special line in AndroidManifest.xml to do Cleartext HTTP Networking.
@@ -61,7 +88,7 @@
 		</li>
 	</ul>
 	
-	<h3>Boilerplate Codes</h3>
+	<h3 id="boilerplate">Boilerplate Codes</h3>
 	<h5>To start a new Activity</h5>
 	<pre class="prettyprint">
 final Intent i = new Intent(this, TargetActivity.class);
@@ -95,8 +122,14 @@ try{
 	<pre class="prettyprint">
 implementation files('../../smartlogistics/target/smartlogistics-1.0-SNAPSHOT.jar')
 </pre>
+
+	<h3 id="validation">Form Validation</h3>
+	<p>
+		For Validation, there is the excellent <a href="https://github.com/ragunathjawahar/android-saripaar">android-saripaar</a> 
+		with <a href="http://learningprogramming.net/mobile/android/form-validation-in-android/">Example</a>.
+	</p>
 	
-	<h3>Relevant Classes</h3>
+	<h3 id="relevant_classes">Relevant Classes</h3>
 	<ul>
 		<li>
 			<a href="https://developer.android.com/reference/android/widget/TextView#summary">TextView</a>
@@ -110,7 +143,19 @@ implementation files('../../smartlogistics/target/smartlogistics-1.0-SNAPSHOT.ja
 				<li>::setText, ::setEnabled, ::setOnClickListener</li>
 			</ul>
 		</li>
-		<li>Activity</li>
+		<li>
+			<a href="https://developer.android.com/reference/android/content/Intent">Intent</a>
+			
+		</li>
+		<li>
+			<a href="https://developer.android.com/reference/android/app/Activity">Activity</a>
+			<ul>
+				<li>::runOnUiThread</li>
+				<li>::startActivity(Intent intent)</li>
+				<li>::finish()</li>
+				<li>::findViewById(int id)   (Example: findViewById(R.id.myTextView)</li>
+			</ul>
+		</li>
 		<li>AppCompatActivity</li>
 		<li>
 			<a href="https://developer.android.com/reference/android/widget/LinearLayout">LinearLayout</a>
@@ -118,7 +163,7 @@ implementation files('../../smartlogistics/target/smartlogistics-1.0-SNAPSHOT.ja
 		<li>
 			<a href="https://developer.android.com/reference/android/widget/Spinner">Spinner</a>
 			<ul>
-				<li>::setAdapter</li>
+				<li>::setAdapter, ::setSelected(int index)</li>
 			</ul>
 		</li>
 		<li>
@@ -126,11 +171,35 @@ implementation files('../../smartlogistics/target/smartlogistics-1.0-SNAPSHOT.ja
 		</li>
 	</ul>
 	
-	<h3>Relevant Subroutines</h3>
-	<ul>
-		<li>findViewById(R.id.YOUR_ID)</li>
-		<li>startActivity(Intent i)</li>
-	</ul>
+	<h3 id="publish">Publish on Google Play Store</h3>
+	<p>
+		You should start as early as possible. As soon as the app has anything that the user
+		can do, start working with the Google Play Console. <br>
+		Last time i checked, they say it can take up to 7 days to approve the app for the play store.
+	</p>
+	<h5> Packaging </h5>
+	<p>
+		In Android Studio:<br>
+		Build -> Select Build Variant -> Release<br>
+	</p>
+	<p>
+		Choose the .aab (Android App Bundle) format <br>
+		(Google does like you to upload .apk for their Play Store). <br>
+		Make a release build. Use a keystore to sign your app.
+		
+	</p>
+	<a href="https://developer.android.com/studio/publish">Official Guide</a>
+	
+	<h5>Google Play Console</h5>
+	<p>
+		When starting Google Play Console, you see about 4 empty checkmarks on the left (navigation)<br>
+		These are stages you must complete so that your App is considered ready for the Play Store.<br>
+		It includes stuff like <br>
+		<ul>
+			<li>Selecting which Countries your App will be available in</li>
+			<li>Selecting Target Audience</li>
+		</ul>
+	</p>
 </div>
     
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
