@@ -28,8 +28,12 @@
 	Your timezone should be the same on the Application Server as on the Database Server.
 	Otherwise there might be date glitching when using <strong>LocalDate</strong> or other
 	Date / Time classes without offset.
-	
+	<br>
 	</p>
+	<code>
+-- to configure timezone for mysql (must be root) (example for germany, as UTC+02:00)<br>
+SET GLOBAL time_zone = '+2:00';
+	</code>
 	
 	<ul>
 		<li><a href="https://mysqltutorial.org">mysqltutorial.org</a></li>
