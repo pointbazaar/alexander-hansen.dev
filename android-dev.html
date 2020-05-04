@@ -22,6 +22,7 @@
 		<a href="#boilerplate">Boilerplate Codes </a><br>
 		<a href="#validation">Form Validation </a><br>
 		<a href="#relevant_classes">Relevant Classes </a><br>
+		<a href="#debugging">Debugging, Exceptions</a><br>
 		<a href="#publish">Publish on <br>Google Play Store </a><br>
 	</div>
 	
@@ -97,16 +98,7 @@ this.finish();
 //prevent users from going back to this activity with the back button
 </pre>
 
-	<h5>To catch Exceptions (use Throwable to catch them all)</h5>
-	<p>In ordinary Java development, most Exceptions could be caught with <strong>Exception</strong>. <br>
-		On Android, <strong>Throwable</strong> should be used. 
-	</p>
-	<pre class="prettyprint">
-try{
-	//could throw
-}catch(Throwable e){
-	//your code
-}</pre>
+	
 
 	<h5>To Change the Colors of your App (res/values/colors.xml)</h5>
 	<pre class="prettyprint lang-xml">
@@ -171,6 +163,41 @@ implementation files('../../smartlogistics/target/smartlogistics-1.0-SNAPSHOT.ja
 		</li>
 	</ul>
 	
+	<hr>
+	
+	<h3 id="debugging">Debugging and Exception Handling</h3>
+	
+	<h5>Android Virtual Devices and Debugging with Android Studio</h5>
+	<p>
+		Android Studio enables you to create virtual Devices. If that works for you, you can easily debug 
+		with log statements in the console and you will also see Stack traces.
+	</p>
+	
+	<h5>Poor Man Debugging</h5>
+	<p>
+		For me, Android Studio doesn't recognize my Samsung Phone when it's plugged into the Computer. <br>
+		And the virtual devices also do not work for some reason. <br>
+		So I debug in a different style. By writing log statements to a file, and having a seperate View 
+		in the App to view this file.
+	</p>
+	
+	<h5>
+		<a href="https://www.bugsnag.com/blog/error-handling-on-android-part-2">Uncaught Exception Handler</a>
+	</h5>
+	
+	<h5>To catch Exceptions (use Throwable to catch them all)</h5>
+	<p>In ordinary Java development, most Exceptions could be caught with <strong>Exception</strong>. <br>
+		On Android, <strong>Throwable</strong> should be used. 
+	</p>
+	<pre class="prettyprint">
+try{
+	//could throw
+}catch(Throwable e){
+	//your code
+}</pre>
+	
+	
+	<hr>
 	<h3 id="publish">Publish on Google Play Store</h3>
 	<p>
 		You should start as early as possible. As soon as the app has anything that the user
