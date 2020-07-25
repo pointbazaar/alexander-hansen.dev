@@ -39,6 +39,18 @@ SET GLOBAL time_zone = '+2:00';
 		<li><a href="https://mysqltutorial.org">mysqltutorial.org</a></li>
 		<li>MySQL Workbench</li>
 	</ul>
+	MySQL, as a default has the timezone of the server it is running on.
+	
+	
+	I encountered problems with mysql server where the server it was running on had "CEST" timezone.
+	The mysql java driver did not recognize the timezone 'CEST'. 
+	In this case, it helped to adjust the jdbc url, as shown here: <br>
+	
+	<a href="https://github.com/jhipster/generator-jhipster/issues/8896"> Fix </a> <br>
+	
+	<code>
+jdbc:mysql://IP:PORT/DB_NAME?serverTimezone=Europe/Berlin"
+	</code>
 </div>
 
 </body>
