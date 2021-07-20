@@ -21,3 +21,11 @@ pre{
 	color:black;
 	font-family:monospace;
 }
+
+.box {
+	border: 1px solid rgb(209, 79, 66);
+	border-radius: 6px;
+	margin: 2px;
+	padding: 5px;
+}
+
