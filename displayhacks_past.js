@@ -126,6 +126,18 @@ var f1=function(){
 				"whatawinnerbuilt":`A winning Team, Team CLIMATIX, made a mockup and a business model, which they presented, for a financial service to rent air conditioning unit. (Challenge: Klima einfach buchbar machen)`,
 				"status":"LOST",
 				"opt_custom":""
+			},
+			{
+				"name":"GastroHackathon 2021",
+				"url":"https://gastrohackathon.com/",
+				"location":"Salzburg, Austria",
+				"startdate":"6.11.2021",
+				"enddate":"7.11.2021",
+				"totalprizes":"3100 Euro",
+				"whatwebuilt":` Our Team built a Food Recognition Service for Buffet, on top of the Dishtracker API. We lost.`,
+				"whatawinnerbuilt":`A winning Team made a chatbot which could build websites for small restaurants and hotels.`,
+				"status":"LOST",
+				"opt_custom":""
 			}
 		]
 	};
