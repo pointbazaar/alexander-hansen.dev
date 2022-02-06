@@ -22,36 +22,45 @@
 
 	<p>
 		I don't have time to pursue every project that comes to mind,
-		and i want to put some ideas out there
+		and i want to put some ideas out there.
+	</p>
+	<p>
+		If you find something that already implements what i described,
+		please let me know via email.
 	</p>
 	
 	<h3>comcat</h3>
-	like 'cat', but it just filters out the comments from source files for many languages
+	Like 'cat', but it just filters out the comments from source files for many languages.
+	<br>
+	I see no real use for it besides being a fun project.
 	
 	<hr>
 	<h3>depcat</h3>
-	like 'cat', but it just filters out the dependencies from source files for many languages
+	Like 'cat', but it just filters out the dependencies from source files for many languages.
+	<br>
+	This would be useful especially for multi-language projects and especially 
+	from a security/performance perspective.
+	To see if you are using multiple versions of the same library.
 	 
 	<hr>
 	<h3>strcat</h3>
-	like 'cat', but it just filters out the strings from source files for many languages
+	Like 'cat', but it just filters out the strings from source files for many languages.
+	<br>
+	Similar to how 'strings' extracts strings from binaries.
 	
 	<hr>
-	<h3>A source code generator...</h3>
-	that generates source code in some language based on a model, specification or MySQL database schema
-
-	<hr>
 	<h3>salloc C Library</h3>
-	which can allocate dynamically on a stack, <br>
+	which can allocate dynamically on the heap, <br>
 	but on a per function
-	basis. So that the stuff allocated in a function can be freed,
+	basis. 
+	So that the stuff allocated in a function can be freed,
 	without having to free everything individually.
+	<br>
+	Similar to how you can allocate statically inside your stackframe,
+	this Library would enable you to allocate dynamically.
 	<br>
 	
 	<pre>
-//macro to handle the freeing of the memory allocated
-//since the last sreturn
-//...
 
 int f(){
 	
