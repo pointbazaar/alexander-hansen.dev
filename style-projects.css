@@ -1,0 +1,19 @@
+body{
+	background-color:#9f9ebb;
+	color:black;
+}
+
+h1,h2,h3,h4,h5{
+	color: #ce0057;
+}
+
+*{
+	font-family:monospace;
+}
+
+a{
+	color:#00F70;
+	
+}
+
+
